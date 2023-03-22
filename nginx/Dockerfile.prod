@@ -1,0 +1,11 @@
+FROM nginx:1.15.0-alpine
+
+# Remove a configuração default do nginx
+RUN rm /etc/nginx/conf.d/default.conf
+# Procura e copia todos os arquivos com a extensão .conf para a pasta /etc/nginx/conf.d
+COPY nginx.conf /etc/nginx/conf.d
+
+# -p cria o diretório caso ele não exista
+# touch cria o arquivo caso ele não exista
+RUN mkdir -p /var/www/html && \
+    touch /var/www/html/index.html
