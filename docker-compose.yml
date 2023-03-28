@@ -1,20 +1,20 @@
 version: '3'
 
 services:
-  # app:
-  #   build: 
-  #     context: node
-  #   networks:
-  #     - node-network
-  #   entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh
-  #   volumes:
-  #     - ./node:/usr/src/app
-  #   tty: true
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     - db
-
+  app:
+    build: 
+      context: node
+    networks:
+      - node-network
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh
+    volumes:
+      - ./node:/usr/src/app
+    command: ["node", "index"]
+    tty: true
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
 
   db:
     image: mysql:5.7
@@ -30,6 +30,19 @@ services:
       - MYSQL_ROOT_PASSWORD=root
     networks:
       - node-network
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.prod
+    image: gabrielgsd/nginx:prod
+    container_name: nginx
+    networks:
+      - node-network
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
   
 networks:
   node-network:
