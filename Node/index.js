@@ -11,9 +11,25 @@ const config = {
 const mysql = require('mysql');
 const connection = mysql.createConnection(config);
 
+const createTableSql = `
+  CREATE TABLE IF NOT EXISTS people (
+    id INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+  );
+`;
+
+connection.query(createTableSql, (err) => {
+  if (err) {
+    console.error('Error creating table: ' + err.stack);
+    return;
+  }
+  console.log('Table created successfully');
+});
+
 const sql = `
   INSERT IGNORE INTO people (id, name)
-  SELECT * FROM (SELECT 2, 'Gabriel') AS tmp
+  SELECT * FROM (SELECT 1, 'Gabriel') AS tmp
   WHERE NOT EXISTS (
       SELECT id FROM people WHERE id = 2
   ) LIMIT 1;
