@@ -23,6 +23,26 @@ https://github.com/GabrielGSD/Fullcycle-Nginx-Node.git
 cd Fullcycle-Nginx-Node
 
 docker-compose up -d
+
 ```
+
+### Criando a tabela people:
+```
+docker-compose exec -it db bash
+
+mysql -uroot -p
+## Colocar a senha root ##
+
+show databases;
+
+use nodedb;
+
+CREATE TABLE IF NOT EXISTS people (
+   id INT NOT NULL,
+   name VARCHAR(255) NOT NULL,
+   PRIMARY KEY (id)
+);
+```
+
 <br/>
 <br/>
