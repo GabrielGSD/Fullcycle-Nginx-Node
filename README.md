@@ -27,6 +27,7 @@ docker-compose up -d
 ```
 
 ### Criando a tabela people:
+*Obs: esse passo deve ser seguido apenas se a tabela não for criada automaticamente*
 ```
 docker-compose exec -it db bash
 
