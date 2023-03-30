@@ -5,11 +5,9 @@ services:
     build: 
       context: node
     container_name: app
-    entrypoint: dockerize -wait tcp://db:3306 -timeout 80s
+    entrypoint: ./start.sh
     volumes:
       - ./node:/usr/src/app
-      - /usr/src/app/node_modules
-    command: ["node", "index"]
     tty: true
     ports:
       - "3000:3000"
