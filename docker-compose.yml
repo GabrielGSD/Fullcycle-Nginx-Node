@@ -9,7 +9,7 @@ services:
     entrypoint: dockerize -wait tcp://db:3306 -timeout 80s docker-entrypoint.sh
     volumes:
       - ./node:/usr/src/app
-      - /usr/src/app
+      - app-data:/app-data
     command: ["node", "index"]
     tty: true
     ports:
@@ -49,5 +49,5 @@ networks:
   node-network:
     driver: bridge
 
-    
-    
+volumes:
+  app-data:
